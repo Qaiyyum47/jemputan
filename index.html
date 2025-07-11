@@ -21,23 +21,24 @@
                     <h2>السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</h2>
                     <p><i>Dengan penuh kesyukuran ke hadrat Allah S.W.T., kami,</i></p>          
 
-                    <h2>KAMAL BIN NOORDIN</h2>
+                    <h1>KAMAL BIN NOORDIN</h1>
                     <p>&amp;</p>
-                    <h2>FARIDAH ALIZA BINTI TAHA</h2>  
+                    <h1>FARIDAH ALIZA BINTI TAHA</h1>  
 
                     <p><i>Dengan segala hormatnya kami menjemput dan mempersilakan</i></p>
                     <p><i>YBhg. Datuk/ Dato’/ Datin/ Tuan/ Puan/ Encik/ Cik</i></p>
                     <p>ke majlis perkahwinan anakanda kami</p>
 
-                    <h2>MUHAMMAD AQIL BIN KAMAL</h2>
+                    <h1>MUHAMMAD AQIL BIN KAMAL</h1>
                     <p>&amp;</p>
-                    <h2>WAN NUR AUNY SYAKIRAH BINTI WAN D'ZLYSHAM</h2>
+                    <h1>WAN NUR AUNY SYAKIRAH BINTI WAN D'ZLYSHAM</h1>
+
 
                     <p><i>yang akan berlangsung pada</i></p>
 
                     <h3><i>Sabtu, 30 Ogos 2025</i></h3>
                     <!-- <p><i>6 Rabiulawal 1447H</i></p> -->
-                    <h3><i>11:00am - 4:00pm</i></h3>
+                    <h3><i>11:00am - 4:30pm</i></h3>
 
                     <!-- <p>Dewan Perdana Suria, MZH2<br>
                         Lot 330, Jalan Ulu Kelang,<br>
@@ -51,7 +52,8 @@
                     </p>
 
                     <a
-                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis%20Perkahwinan%20Aqil%20dan%20Auny&dates=20250830T030000Z/20250830T080000Z&details=Majlis%20di%20Dewan%20Perdana%20Suria%2C%20Lot%20330%2C%20Batu%208%2C%20Jalan%20Ulu%20Kelang%2C%20Taman%20Zooview%2C%2068000%20Ampang%2C%20Selangor.%0A%0AGoogle%20Maps%3A%20https%3A%2F%2Fmaps.app.goo.gl%2F3EuepGcxqQGhcAym8%0AWaze%3A%20waze%3A%2F%2F%3Fll%3D3.2049550654714936%2C101.75863634038859%26navigate%3Dyes&location=Dewan%20Perdana%20Suria%2C%20Lot%20330%2C%20Batu%208%2C%20Jalan%20Ulu%20Kelang%2C%20Taman%20Zooview%2C%2068000%20Ampang%2C%20Selangor&sf=true&output=xml"
+                    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis%20Perkahwinan%20Aqil%20dan%20Auny&dates=20250830T030000Z/20250830T083000Z&details=Majlis%20di%20Dewan%20Perdana%20Suria%2C%20Lot%20330%2C%20Batu%208%2C%20Jalan%20Ulu%20Kelang%2C%20Taman%20Zooview%2C%2068000%20Ampang%2C%20Selangor.%0A%0AGoogle%20Maps%3A%20https%3A%2F%2Fmaps.app.goo.gl%2F3EuepGcxqQGhcAym8%0A%0AWaze%3A%20waze%3A%2F%2F%3Fll%3D3.2049550654714936%2C101.75863634038859%26navigate%3Dyes&location=Dewan%20Perdana%20Suria%2C%20Lot%20330%2C%20Batu%208%2C%20Jalan%20Ulu%20Kelang%2C%20Taman%20Zooview%2C%2068000%20Ampang%2C%20Selangor&sf=true&output=xml"
+
                     target="_blank"
                     >
                     <button class="tarikh-btn">Simpan Tarikh</button>
@@ -70,29 +72,11 @@
                         <div class="countdown-box"><div class="countdown-number" id="minutes">2</div><div class="countdown-label">Minit</div></div>
                         <div class="countdown-box"><div class="countdown-number" id="seconds">16</div><div class="countdown-label">Saat</div></div>
                     </div>
-                    <script>
-                        const weddingDate = new Date("2025-08-30T11:00:00").getTime();
-                        function updateCountdown() {
-                            const now = new Date().getTime();
-                            const distance = weddingDate - now;
-                            if (distance < 0) {
-                                ["days", "hours", "minutes", "seconds"].forEach(id => {
-                                    document.getElementById(id).textContent = "0";
-                                });
-                                return;
-                            }
-                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                            document.getElementById("days").textContent = days;
-                            document.getElementById("hours").textContent = hours;
-                            document.getElementById("minutes").textContent = minutes;
-                            document.getElementById("seconds").textContent = seconds;
-                        }
-                        updateCountdown();
-                        setInterval(updateCountdown, 1000);
-                    </script>
+
+                    <div >Jumlah tetamu:<br><br>
+                        <span id="guest-count">loading...</span>
+                    </div>
+
                 </section>
 
                 <section>
@@ -100,31 +84,15 @@
                     <ul class="timeline">
                         <li>
                             <div class="time">11:00 AM</div>
-                            <div class="event">Ketibaan Ahli keluarga</div>
-                        </li>
-                        <li>
-                            <div class="time">12:00 PM</div>
-                            <div class="event">Ketibaan Pengantin</div>
+                            <div class="event">Ketibaan Tetamu</div>
                         </li>
                         <li>
                             <div class="time">12:30 PM</div>
-                            <div class="event">Bacaan doa</div>
+                            <div class="event">Ketibaan Pengantin</div>
                         </li>
                         <li>
-                            <div class="time">1:00 PM</div>
-                            <div class="event">Salam Restu</div>
-                        </li>
-                        <li>
-                            <div class="time">2:00 PM</div>
-                            <div class="event">Makan Beradab</div>
-                        </li>
-                        <li>
-                            <div class="time">3:00 PM</div>
-                            <div class="event">Sesi Potong Kek</div>
-                        </li>
-                        <li>
-                            <div class="time">3:30 PM</div>
-                            <div class="event">Sesi Bergambar & Bersurai</div>
+                            <div class="time">4:30 PM</div>
+                            <div class="event">Bersurai</div>
                         </li>
                         </ul>
 
@@ -160,15 +128,16 @@
 
             <section>
                 <h2>Ucapan</h2>
-                <div></div>
+                <div id="ucapan-list" class="ucapan-scroll"></div>
             </section>
+
 
             <div id="popup-overlay" class="popup-overlay" onclick="closePopup()"></div>
 
             <section id="popup-contact" class="popup-section">
                  <button class="close" onclick="closePopup()">x</button>
-                <h2>Contact</h2>
-                <a href="https://wa.me/60103155198?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20mengenai%20majlis%20perkahwinan." target="_blank" class="contact-link">
+                <h2>Hubungi</h2>
+                <a href="https://wa.me/601160814971?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20mengenai%20majlis%20perkahwinan." target="_blank" class="contact-link">
                     <div class="contact-box">
                         <div>
                             <strong>Faridah Aliza</strong><br>
@@ -178,7 +147,7 @@
                     </div>
                 </a>
 
-                <a href="https://wa.me/601129229158?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20mengenai%20majlis%20perkahwinan." target="_blank" class="contact-link">
+                <a href="https://wa.me/601160814971?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20mengenai%20majlis%20perkahwinan." target="_blank" class="contact-link">
                     <div class="contact-box">
                         <div>
                             <strong>Noor Masturah</strong><br>
@@ -190,30 +159,35 @@
             </section>
 
             <section id="popup-rsvp" class="popup-section">
-                 <button class="close" onclick="closePopup()">x</button>
+                <button class="close" onclick="closePopup()">x</button>
                 <h2>RSVP</h2>
-                <form action="https://docs.google.com/forms/d/e/1FAIpQLSf-rRYIDM_KS5H8qA0FsvRZWhB1jv48W4g1Ds5GKv06ELNe4w/formResponse" method="POST" target="_blank">
-                    <label for="name">Nama</label>
-                    <input type="text" id="name" name="name" placeholder="Nama Anda" required>
+                <p id="rsvp-success" style="display:none; color: green; margin-top: 10px;">TERIMA KASIH<br> KEHADIRAN ANDA TELAH DIREKODKAN</p>
+                <form id="rsvp-form">
+                    <label for="name">Nama:</label>
+                    <input type="text" id="name" name="entry.709097309" placeholder="Nama Anda" required>
 
-                    <label for="guest-amount">Bilangan Kehadiran</label>
-                    <input type="number" id="guest-amount" name="guest-amount" min="1" placeholder="Contoh: 2">
+                    <label for="guest-amount">Bilangan Kehadiran:</label>
+                    <select id="guest-amount" name="entry.1495740835" required>
+                        <option value="" disabled selected>Pilih jumlah</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
 
-                    <label for="speech">Bilangan Kehadiran</label>
-                    <textarea type="textarea" id="speech" name="speech" rows="4" cols="50" placeholder="Tulis ucapan anda di sini"></textarea>
+
+                    <label for="speech">Ucapan:</label>
+                    <textarea id="speech" name="entry.637054969" rows="4" cols="50" placeholder="Tulis ucapan anda di sini"></textarea>
 
                     <button class="hadir-submit" type="submit">Hantar</button>
                 </form>
-            </section>
-
+            </section>  
 
             <section id="popup-location" class="popup-section">
                  <button class="close" onclick="closePopup()">x</button>
-                <h2>Location</h2>
-                Dewan Perdana Suria<br>
-                MZH2, Lot 330, Batu 8, Jalan Ulu Kelang,<br>
-                Taman Zooview,<br>
-                68000 Ampang, Selangor<br>
+                <h2>Lokasi</h2>
+                Dewan Perdana Suria MZH2,<br>
+                Lot 330, Batu 8, Jalan Ulu Kelang,<br>
+                Taman Zooview, 68000<br>
+                Ampang, Selangor<br>
                 <div class="map-buttons">
                     <form action="https://maps.app.goo.gl/3EuepGcxqQGhcAym8" target="_blank">
                         <button type="submit" class="map-btn">Google Maps</button>
@@ -231,7 +205,7 @@
     <div class="nav-links">
         <div onclick="toggleSection('contact')">
         <img src="assets/icons/telephone.png" alt="Contact" class="nav-icon">
-        <span>Contact</span>
+        <span>Hubungi</span>
         </div>
         <div onclick="toggleSection('rsvp')">
         <img src="assets/icons/mail.png" alt="RSVP" class="nav-icon">
@@ -239,7 +213,7 @@
         </div>
         <div onclick="toggleSection('location')">
         <img src="assets/icons/location2.png" alt="Location" class="nav-icon">
-        <span>Location</span>
+        <span>Lokasi</span>
         </div>
     </div>
     </footer>

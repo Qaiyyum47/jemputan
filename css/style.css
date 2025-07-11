@@ -18,18 +18,18 @@ main {
 
 
 h1 {
-    font-size: 1.5em;
-    margin: 16px 0;
+    font-size: 1.6em;
+    margin: 14px 0;
 }
 
 h2 {
     font-size: 1.2em;
-    margin: 14px 0;
+    margin: 11px 0;
 }
 
 h3 {
     font-size: 1.1em;
-    margin: 12px 0;
+    margin: 10px 0;
 }
 
 h4 {
@@ -38,7 +38,7 @@ h4 {
 }
 
 p {
-    font-size: 0.8em;
+    font-size: 0.9em;
     margin: 8px 0;
 }
 
@@ -54,6 +54,7 @@ img {
     text-align: center;
     gap: 10px;
     flex-wrap: wrap;
+    margin-bottom: 10px;
 }
 
 .countdown-box {
@@ -93,7 +94,7 @@ img {
     margin-top: 4px;
 }
 
-input, textarea, button {
+input, textarea, button, select {
     padding: 10px;
     font-size: 1em;
     width: 100%;
@@ -102,7 +103,7 @@ input, textarea, button {
     font-family: 'Spartan', sans-serif;
 }
 
-input, textarea {
+input, textarea, select {
     border-radius: 8px;
     border: 1px solid ;
 }
@@ -130,12 +131,7 @@ button {
 }
 
 
-/* Responsive image gallery */
-section img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
+
 
 section {
     padding: 40px 0;
@@ -162,7 +158,7 @@ section {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 55%; 
+    height: 50%; 
     background: #fff;
     z-index: 2000;
     padding: 20px;
@@ -173,6 +169,12 @@ section {
     text-align: center;
     animation: slideUp 0.3s ease;
 }
+
+
+.popup-section.active {
+    display: block;
+}
+
 
 .popup-section:nth-of-type(3) {
     height: 70%;
@@ -186,11 +188,6 @@ section {
     to {
         transform: translateY(0);
     }
-}
-
-
-.popup-section.active {
-    display: block;
 }
 
 .popup-overlay {
@@ -293,8 +290,8 @@ section {
     background: white;
     border: 1px solid;
     border-radius: 10px;
-    padding: 12px 16px;
-    margin-bottom: 10px;
+    padding: 20px 16px;
+    margin-bottom: 15px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: background 0.2s;
     text-align: left;
@@ -303,6 +300,7 @@ section {
 .wa-icon {
     width: 24px;
     height: 24px;
+    border-radius: 0;
 }
 
 .map-buttons {
@@ -327,18 +325,17 @@ section {
 
 .timeline li {
     width: 80%;
-    padding-bottom: 10px;
+    padding: 10px 0;
     margin: 0;
     border-bottom: 1px solid #ccc;
 }
 
-.timeline li div {
-    margin: 5px 0;
-}
-
 .timeline li:nth-of-type(1) {
     border-top: 1px solid #ccc;
-    padding-top: 10px;
+}
+
+.timeline li div {
+    margin: 5px 0;
 }
 
 .nav-icon {
@@ -346,4 +343,28 @@ section {
   height: 24px;
   display: block;
   margin: 0 auto;
+}
+
+.ucapan-scroll {
+  min-height: 200px;
+  max-height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ucapan-scroll p {
+  margin: 0;
+  padding: 8px 0;
+  font-size: 16px;
+  animation: scroll-up 20s linear infinite;
+  text-align: center;
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }
