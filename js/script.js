@@ -1,59 +1,74 @@
+// ===== POPUP CONTROL =====
 function toggleSection(sectionId) {
-    closePopup(); // Close any open popup first
-    document.getElementById('popup-overlay').classList.add('active');
-    document.getElementById('popup-' + sectionId).classList.add('active');
+  closePopup();
+  document.getElementById('popup-overlay').classList.add('active');
+  document.getElementById('popup-' + sectionId).classList.add('active');
+  document.body.classList.add('no-scroll');
 }
 
 function closePopup() {
-    document.getElementById('popup-overlay').classList.remove('active');
-    const popups = document.querySelectorAll('.popup-section');
-    popups.forEach(p => p.classList.remove('active'));
+  document.getElementById('popup-overlay').classList.remove('active');
+  const popups = document.querySelectorAll('.popup-section');
+  popups.forEach(p => p.classList.remove('active'));
+  document.body.classList.remove('no-scroll');
 }
 
+// ===== CAROUSEL SLIDER =====
+let currentSlide = 0;
+const slides = document.querySelectorAll(".carousel img");
+const dots = document.querySelectorAll(".dot");
 
+function setSlide(index) {
+  currentSlide = index;
+  updateCarousel();
+}
 
-  let currentSlide = 0;
-  const slides = document.querySelectorAll(".carousel img");
-  const dots = document.querySelectorAll(".dot");
+function updateCarousel() {
+  const carousel = document.querySelector(".carousel");
+  carousel.style.transform = `translateX(-${currentSlide * 80}vw)`;
+  dots.forEach(dot => dot.classList.remove("active"));
+  dots[currentSlide].classList.add("active");
+}
 
-  function setSlide(index) {
-    currentSlide = index;
-    updateCarousel();
+function autoSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  updateCarousel();
+}
+
+setInterval(autoSlide, 3000);
+
+// ===== RSVP STEP CONTROL =====
+function setAttendance(status) {
+  const confirmMsg = "Anda memilih: (" + status + "). Teruskan?";
+  if (confirm(confirmMsg)) {
+    document.getElementById("hadir-status").value = status;
+    document.getElementById("attendance-step").style.display = "none";
+    document.getElementById("rsvp-form").style.display = "block";
   }
+}
 
-  function updateCarousel() {
-    const carousel = document.querySelector(".carousel");
-    carousel.style.transform = `translateX(-${currentSlide * 80}vw)`;
-    dots.forEach(dot => dot.classList.remove("active"));
-    dots[currentSlide].classList.add("active");
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("rsvp-form").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  function autoSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    updateCarousel();
-  }
+    const form = e.target;
+    const data = new FormData(form);
 
-  setInterval(autoSlide, 3000);
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSfpb6SGSTtJ7RuyJQ1dFrcl8XJ_zci-QMTnm1jt1eBkKTDxug/formResponse", {
+      method: "POST",
+      mode: "no-cors",
+      body: data,
+    });
 
+    form.reset();
+    document.getElementById("rsvp-form").style.display = "none";
+    document.getElementById("rsvp-success").style.display = "block";
+  });
+});
 
-            document.getElementById("rsvp-form").addEventListener("submit", function (e) {
-                e.preventDefault();
-                const form = e.target;
-                const data = new FormData(form);
-
-                fetch("https://docs.google.com/forms/d/e/1FAIpQLSfpb6SGSTtJ7RuyJQ1dFrcl8XJ_zci-QMTnm1jt1eBkKTDxug/formResponse", {
-                method: "POST",
-                mode: "no-cors",
-                body: data,
-                });
-
-                form.reset();
-                document.getElementById("rsvp-success").style.display = "block";
-            });
-
-            let startX = 0;
+// ===== CAROUSEL SWIPE SUPPORT =====
+let startX = 0;
 let endX = 0;
-
 const carouselElement = document.querySelector(".carousel-wrapper");
 
 carouselElement.addEventListener("touchstart", (e) => {
@@ -67,17 +82,16 @@ carouselElement.addEventListener("touchend", (e) => {
 
 function handleSwipe() {
   if (startX - endX > 50) {
-    // Swipe left
     currentSlide = (currentSlide + 1) % slides.length;
     updateCarousel();
   } else if (endX - startX > 50) {
-    // Swipe right
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
     updateCarousel();
   }
 }
 
-fetch("https://script.google.com/macros/s/AKfycbyM_Mf7dah7Z2E6-YIhe74pQ2dH4UaYwNpfLdQde4dr-mzSbtn088x-aVit-XmVYN7l7g/exec")
+// ===== UCAPAN FETCH =====
+fetch("https://script.google.com/macros/s/AKfycbwpk9YVTG-naSUqQiH5EAvWsmG3aJrMmtgfV3ZORWhwu5dF2ug9OxHPQ8VyPazQfq4c4g/exec")
   .then(res => res.json())
   .then(data => {
     const list = document.getElementById("ucapan-list");
@@ -85,7 +99,7 @@ fetch("https://script.google.com/macros/s/AKfycbyM_Mf7dah7Z2E6-YIhe74pQ2dH4UaYwN
 
     const createEntry = (item) => {
       const p = document.createElement("p");
-      p.innerHTML = `<strong>${item.name}</strong><br>${item.message}`;
+      p.innerHTML = `<i>"${item.message}"</i><br><strong>${item.name}</strong>`;
       return p;
     };
 
@@ -94,28 +108,119 @@ fetch("https://script.google.com/macros/s/AKfycbyM_Mf7dah7Z2E6-YIhe74pQ2dH4UaYwN
     }
 
     list.style.animationDuration = `${list.scrollHeight / 30}s`;
-    count.textContent = `${data.length + 50}`;
+
+    const hadirCount = data.filter(item => item.hadir === "Hadir").length;
+    count.textContent = `${hadirCount + 50}`;
   })
   .catch(err => console.error("Failed to fetch ucapan:", err));
 
+// ===== COUNTDOWN =====
 const weddingDate = new Date("2025-08-30T11:00:00").getTime();
-                        function updateCountdown() {
-                            const now = new Date().getTime();
-                            const distance = weddingDate - now;
-                            if (distance < 0) {
-                                ["days", "hours", "minutes", "seconds"].forEach(id => {
-                                    document.getElementById(id).textContent = "0";
-                                });
-                                return;
-                            }
-                            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                            document.getElementById("days").textContent = days;
-                            document.getElementById("hours").textContent = hours;
-                            document.getElementById("minutes").textContent = minutes;
-                            document.getElementById("seconds").textContent = seconds;
-                        }
-                        updateCountdown();
-                        setInterval(updateCountdown, 1000);
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = weddingDate - now;
+
+  if (distance < 0) {
+    ["days", "hours", "minutes", "seconds"].forEach(id => {
+      document.getElementById(id).textContent = "0";
+    });
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = hours;
+  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("seconds").textContent = seconds;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ===== MUSIC + INTRO ANIMATION =====
+const music = document.getElementById("bg-music");
+const btn = document.getElementById("music-btn");
+const icon = document.getElementById("music-icon");
+const introScreen = document.getElementById("intro-screen");
+const enterBtn = document.getElementById("enter-btn");
+const mainContent = document.getElementById("main-content");
+
+enterBtn.addEventListener("click", () => {
+  enterBtn.classList.add("animate-exit");
+  document.body.classList.add("no-scroll");
+
+  setTimeout(() => {
+    document.body.classList.remove("no-scroll");
+    introScreen.style.display = "none";
+    mainContent.style.display = "block";
+    btn.style.display = "block";
+
+    music.play().then(() => {
+      icon.src = "assets/icons/music-sign.png";
+      icon.alt = "Music On";
+    }).catch(() => {
+      icon.src = "assets/icons/mute.png";
+      icon.alt = "Music Off";
+    });
+
+    let autoScroll = true;
+    let lastScrollY = 0;
+
+    setTimeout(() => {
+      const scrollInterval = setInterval(() => {
+        if (!autoScroll) return;
+        window.scrollBy(0, 1);
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+          clearInterval(scrollInterval);
+        }
+      }, 20);
+
+      window.addEventListener("scroll", () => {
+        const currentY = window.scrollY;
+
+        if (currentY < lastScrollY) {
+          autoScroll = false;
+          clearInterval(scrollInterval);
+        }
+
+        if (currentY > lastScrollY) {
+          btn.classList.add("hide");
+        } else {
+          btn.classList.remove("hide");
+        }
+
+        lastScrollY = Math.max(0, currentY);
+      });
+    }, 1300);
+
+  }, 800);
+});
+
+btn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    icon.src = "assets/icons/music-sign.png";
+    icon.alt = "Music On";
+  } else {
+    music.pause();
+    icon.src = "assets/icons/mute.png";
+    icon.alt = "Music Off";
+  }
+});
+
+const textarea = document.getElementById('speech');
+const wordCountDisplay = document.getElementById('wordCount');
+
+textarea.addEventListener('input', function () {
+  let words = this.value.trim().split(/\s+/).filter(Boolean);
+  if (words.length > 20) {
+    words = words.slice(0, 20);
+    this.value = words.join(' ');
+  }
+  wordCountDisplay.textContent = `Ucapan: (${words.length} / 20 perkataan)`;
+});
