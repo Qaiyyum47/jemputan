@@ -1,9 +1,29 @@
+html {
+  background-image: url('../assets/img/bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%; /* width: 100%, height: full viewport */
+  background-position: top;
+  background-attachment: scroll; /* or fixed if you want parallax */
+   background-color: rgba(255, 243, 222, 0.8); /* ✅ Add this line */
+  background-blend-mode: screen; /* optional: try multiply, overlay, etc. */
+}
+
 body {
   box-sizing: border-box;
   font-family: 'Spartan', sans-serif;
   padding-bottom: 60px;
   text-align: center;
+ 
 }
+
+body, footer, .popup-section {
+max-width: 425px;
+  margin-right: auto;
+  margin-left: auto;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
 
 main {
   padding: 16px;
@@ -16,11 +36,11 @@ main {
   font-style: normal;
 }
 
-h1 { font-size: 1.6em; margin: 10px 0; }
-h2 { font-size: 1.2em; margin: 10px 0; }
-h3 { font-size: 1.1em; margin: 10px 0; }
-h4 { font-size: 1em; margin: 10px 0; }
-p  { font-size: 0.9em; margin: 8px 0; }
+h1 { font-family: 'Felix Titling', sans-serif; font-size: 1.6em; margin: 10px 0; color: #6c4411; }
+h2 { font-family: 'Felix Titling', sans-serif;font-size: 1.2em; margin: 10px 0; color: #6c4411;}
+h3 { font-size: 1.1em; margin: 10px 0; color: #6c4411; }
+h4 { font-size: 1em; margin: 10px 0;color: #8a5b0e; }
+p  { font-size: 0.9em; margin: 4px 0;color: #8a5b0e; }
 
 img {
   max-width: 100%;
@@ -130,7 +150,7 @@ section {
   height: 50%;
   background: #fff;
   z-index: 2000;
-  padding: 20px;
+  padding: 20px 0px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
@@ -184,8 +204,9 @@ form input, select, textarea {
 
 .carousel-wrapper {
   position: relative;
-  width: 80vw;
-  height: 80vw;
+  width: 100%;
+  max-width: 425px;
+  aspect-ratio: 1 / 1;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 12px;
@@ -195,15 +216,15 @@ form input, select, textarea {
 .carousel {
   display: flex;
   transition: transform 0.8s ease-in-out;
-  width: calc(80vw * 3);
 }
 
 .carousel img {
-  width: 80vw;
-  height: 80vw;
+  min-width: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   flex-shrink: 0;
 }
+
 
 .dots {
   text-align: center;
@@ -247,50 +268,76 @@ form input, select, textarea {
 .time {
   font-weight: bold;
   margin-bottom: 4px;
+  color:  #6c4411;
 }
 
 .event {
-  color: #555;
+  color:  #8A5B0E;
+}
+
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 425px;
+  margin: 0 auto;
 }
 
 .contact-link {
+  display: flex;              /* ensure child centers */
+  justify-content: center;    /* center the .contact-box */
+  width: 100%;
   text-decoration: none;
   color: inherit;
+  box-sizing: border-box;
 }
 
 .contact-box {
+  width: 85%;
+  max-width: 400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  padding: 20px 16px;
   border: 1px solid;
   border-radius: 10px;
-  padding: 20px 16px;
-  margin-bottom: 15px;
+  background: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: background 0.2s;
   text-align: left;
 }
 
+
 .wa-icon {
   width: 24px;
   height: 24px;
 }
-
 .map-buttons {
   display: flex;
-  gap: 12px;
-  justify-content: center;
+  flex-direction: column; /* stack buttons on mobile */
+  align-items: center;
+  gap: 10px;
   margin-top: 10px;
 }
 
 .map-btn {
-  flex: 1;
-  text-align: center;
-  padding: 10px 16px;
+  background-color: white;
+  color: black;
+  border: 1px solid;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px 0px;
+  font-size: 1em;
   width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  font-family: 'Spartan', sans-serif;
   transition: background-color 0.2s;
 }
+
 
 .rsvp-btn {
   margin-top: 5%;
@@ -323,9 +370,10 @@ form input, select, textarea {
   max-height: 350px;
   overflow: auto;
   position: relative;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  width: 60%;
+  margin:0 auto
 }
 
 #ucapan-list {
@@ -340,6 +388,7 @@ form input, select, textarea {
   font-size: 16px;
   animation: scroll-up 20s linear infinite;
   text-align: center;
+  color: black;
 }
 
 @keyframes scroll-up {
@@ -381,7 +430,9 @@ form input, select, textarea {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #fff;
+  background-image: url('../assets/img/bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%; /* width: 100%, height: full viewport */
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -395,7 +446,7 @@ form input, select, textarea {
   background-color: white;
   color: black;
   border-radius: 50%;
-  border: 1px solid;
+  border: 1px solid #6c4411;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -407,8 +458,79 @@ form input, select, textarea {
   transform: translateY(200px);
   opacity: 0;
   transition: transform 0.8s ease, opacity 0.8s ease;
-}
+} 
 
 .kehadiran {
   width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
+
+.popup-overlay1 {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-overlay1 img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+@keyframes pulse-highlight {
+  0%, 100% {
+     background-color: white;
+    color:  #6c4411;
+    transform: scale(1);
+    
+  }
+  50% { 
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    transform: scale(1.09);
+  }
+}
+
+.rsvp-highlight {
+  animation: pulse-highlight 5s infinite;
+  transition: all 1.8s ease;
+}
+
+@keyframes pulse-highlight {
+  0%, 100% {
+    background-color: white;
+    color: black;
+    transform: scale(1);
+  }
+  50% {
+    background-color: #6c4411;
+    color: white;
+    border: 2px solid  #6c4411;
+    transform: scale(1.09);
+  }
+}
+
+@keyframes border-pulse {
+  0%, 100% {
+    border-width: 2px;
+  }
+  50% {
+    border-style: dashed;
+    border-width: 6px;
+  }
+}
+
+.animated-border {
+  border: 2px solid black;
+  animation: border-pulse 4s infinite;
+  transition: border-width 0.8s ease;
+}
+

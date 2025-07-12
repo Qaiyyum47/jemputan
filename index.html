@@ -7,14 +7,15 @@
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/script.js" defer></script>
 </head>
-<body>
-  <div>
-    <!-- Popup thingy intro here -->
-  </div>
 
-  <div id="intro-screen">
-    <button id="enter-btn">Masuk</button>
-  </div>
+    <div id="image-popup" class="popup-overlay1" onclick="closeImagePopup()">
+        <img id="popup-img" src="" alt="popup" />
+    </div>
+
+<body>
+    <div id="intro-screen">
+        <button id="enter-btn" class="animated-border"><h2>Masuk</h2></button>
+    </div>
 
   <audio id="bg-music" src="assets/audio/Airliftz - POPULATION_ TWO (visualizer).mp3" loop></audio>
   <button id="music-btn" style="display: none;">
@@ -24,15 +25,16 @@
   <main>
     <div id="wrapper">
       <div id="main-content" style="display: none;">
-        <h1><i>Jemputan Majlis Perkahwinan</i></h1>
 
         <section>
+          <h1><i>Jemputan Majlis Perkahwinan</i></h1><br><br>
+
           <h2>السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</h2>
-          <p><i>Dengan penuh kesyukuran ke hadrat Allah S.W.T., kami,</i></p><br>
+          <p><i>Dengan penuh kesyukuran ke hadrat Allah S.W.T., kami,</i></p>
 
           <h2>KAMAL BIN NOORDIN</h2>
           <p>&amp;</p>
-          <h2>FARIDAH ALIZA BINTI TAHA</h2><br>
+          <h2>FARIDAH ALIZA BINTI TAHA</h2>
 
           <p><i>Dengan segala hormatnya kami menjemput dan mempersilakan</i></p>
           <p><i>YBhg. Datuk/ Dato’/ Datin/ Tuan/ Puan/ Encik/ Cik</i></p>
@@ -42,7 +44,7 @@
           <p>&amp;</p>
           <h1>WAN NUR AUNY SYAKIRAH BINTI WAN D'ZLYSHAM</h1><br>
 
-          <p><i>yang akan berlangsung pada</i></p><br>
+          <p><i>yang akan berlangsung pada</i></p>
           <h3><i>Sabtu, 30 Ogos 2025</i></h3>
           <!-- <p><i>6 Rabiulawal 1447H</i></p> -->
           <h3><i>11:00am - 4:30pm</i></h3>
@@ -57,8 +59,7 @@
             Lot 330, Jalan Ulu Kelang,<br>
             Taman Zooview, Ampang, Selangor.
           </p>
-
-          <button class="rsvp-btn" onclick="toggleSection('rsvp')" style="background-color: black; color: white;">RSVP</button>
+        <button class="rsvp-btn rsvp-highlight" onclick="handleRSVPClick(this)">RSVP</button>
 
           <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis%20Perkahwinan%20Aqil%20dan%20Auny&dates=20250830T030000Z/20250830T083000Z&details=Majlis%20di%20Dewan%20Perdana%20Suria%2C%20Lot%20330%2C%20Batu%208%2C%20Jalan%20Ulu%20Kelang%2C%20Taman%20Zooview%2C%2068000%20Ampang%2C%20Selangor.%0A%0AGoogle%20Maps%3A%20https%3A%2F%2Fmaps.app.goo.gl%2F3EuepGcxqQGhcAym8%0A%0AWaze%3A%20waze%3A%2F%2F%3Fll%3D3.2049550654714936%2C101.75863634038859%26navigate%3Dyes&location=Dewan%20Perdana%20Suria%2C%20Lot%20330%2C%20Batu%208%2C%20Jalan%20Ulu%20Kelang%2C%20Taman%20Zooview%2C%2068000%20Ampang%2C%20Selangor&sf=true&output=xml" target="_blank">
             <button class="tarikh-btn">Simpan Tarikh</button>
@@ -118,18 +119,20 @@
             Sempurnakan agama mereka dengan berkat ikatan ini
             dan semoga jodoh pernikahan ini akan berkekalan hingga ke jannah.<br><br>
             Amin Ya Rabbal Alamin
-          </i></p>
+          </i></p><br><br>
 
           <div class="carousel-wrapper">
             <div class="carousel">
-              <img src="assets/img/pic1.jpeg" alt="Gambar 1" />
-              <img src="assets/img/pic2.jpeg" alt="Gambar 2" />
-              <img src="assets/img/pic3.jpeg" alt="Gambar 3" />
+            <img src="assets/img/pic1.jpeg" alt="Gambar 1" onclick="openImagePopup(this.src)" />
+            <img src="assets/img/pic2.jpeg" alt="Gambar 2" onclick="openImagePopup(this.src)" />
+            <img src="assets/img/pic3.jpeg" alt="Gambar 3" onclick="openImagePopup(this.src)" />
+            <img src="assets/img/pic4.jpeg" alt="Gambar 4"  onclick="openImagePopup(this.src)" />
             </div>
             <div class="dots">
               <span class="dot active" onclick="setSlide(0)"></span>
               <span class="dot" onclick="setSlide(1)"></span>
               <span class="dot" onclick="setSlide(2)"></span>
+              <span class="dot" onclick="setSlide(3)"></span>
             </div>
           </div>
         </section>
@@ -138,33 +141,40 @@
       <section>
         <h2>Ucapan</h2>
         <div id="ucapan-list" class="ucapan-scroll"></div>
-        <button class="rsvp-btn" onclick="toggleSection('rsvp')">RSVP</button>
+        <button class="rsvp-btn rsvp-highlight" onclick="handleRSVPClick(this)">RSVP</button>
       </section>
+      <p style="color: #ccc">Music by:<br> <a style="color: #a7a2a2; text-decoration: underline;" href="https://www.youtube.com/watch?v=XpXnw8Qn7LU&pp=ygUrYWlybGlmdHogLSBwb3B1bGF0aW9uXyB0d28gKHZpc3VhbGl6ZXIpLm1wMw%3D%3D">
+        Airliftz - POPULATION: TWO
+      </a></p>
 
       <div id="popup-overlay" class="popup-overlay" onclick="closePopup()"></div>
 
       <section id="popup-contact" class="popup-section">
         <button class="close" onclick="closePopup()">x</button>
         <h2>Hubungi</h2>
-        <a href="https://wa.me/601160814971?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20mengenai%20majlis%20perkahwinan%20Aqil%20dan%20Auny." target="_blank" class="contact-link">
-          <div class="contact-box">
-            <div>
-              <strong>Faridah Aliza</strong><br />
-              <span>(Ibu Pengantin Lelaki)</span>
-            </div>
-            <img src="assets/icons/whatsapp.png" alt="WhatsApp" class="wa-icon" />
-          </div>
-        </a>
+        <div class="contact-container">
+  <a href="https://wa.me/601160814971?text=..." target="_blank" class="contact-link">
+    <div class="contact-box">
+      <div>
+        <strong>Faridah Aliza</strong><br />
+        <span>(Ibu Pengantin Lelaki)</span>
+      </div>
+      <img src="assets/icons/whatsapp.png" alt="WhatsApp" class="wa-icon" />
+    </div>
+  </a>
 
-        <a href="https://wa.me/601160814971?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20mengenai%20majlis%20perkahwinan%20Aqil%20dan%20Auny." target="_blank" class="contact-link">
-          <div class="contact-box">
-            <div>
-              <strong>Noor Masturah</strong><br />
-              <span>(Ibu Pengantin Perempuan)</span>
-            </div>
-            <img src="assets/icons/whatsapp.png" alt="WhatsApp" class="wa-icon" />
-          </div>
-        </a>
+  <a href="https://wa.me/601160814971?text=..." target="_blank" class="contact-link">
+    <div class="contact-box">
+      <div>
+        <strong>Noor Masturah</strong><br />
+        <span>(Ibu Pengantin Perempuan)</span>
+      </div>
+      <img src="assets/icons/whatsapp.png" alt="WhatsApp" class="wa-icon" />
+    </div>
+  </a>
+</div>
+
+        
       </section>
 
       <section id="popup-rsvp" class="popup-section">
@@ -212,12 +222,12 @@
         Taman Zooview, 68000<br />
         Ampang, Selangor
         <div class="map-buttons">
-          <form action="https://maps.app.goo.gl/3EuepGcxqQGhcAym8" target="_blank">
-            <button type="submit" class="map-btn">Google Maps</button>
-          </form>
-          <form action="waze://?ll=3.2049550654714936,101.75863634038859&navigate=yes" target="_blank">
-            <button type="submit" class="map-btn">Waze</button>
-          </form>
+          <a href="https://maps.app.goo.gl/3EuepGcxqQGhcAym8" target="_blank" class="map-btn">
+            Google Maps
+          </a>
+          <a href="waze://?ll=3.2049550654714936,101.75863634038859&navigate=yes" target="_blank" class="map-btn">
+            Waze
+          </a>
         </div>
       </section>
     </div>
@@ -239,5 +249,7 @@
       </div>
     </div>
   </footer>
+
+
 </body>
 </html>

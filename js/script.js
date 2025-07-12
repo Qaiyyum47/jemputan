@@ -13,7 +13,6 @@ function closePopup() {
   document.body.classList.remove('no-scroll');
 }
 
-// ===== CAROUSEL SLIDER =====
 let currentSlide = 0;
 const slides = document.querySelectorAll(".carousel img");
 const dots = document.querySelectorAll(".dot");
@@ -24,10 +23,12 @@ function setSlide(index) {
 }
 
 function updateCarousel() {
+  const slideWidth = document.querySelector(".carousel-wrapper").offsetWidth;
   const carousel = document.querySelector(".carousel");
-  carousel.style.transform = `translateX(-${currentSlide * 80}vw)`;
+  carousel.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
   dots.forEach(dot => dot.classList.remove("active"));
-  dots[currentSlide].classList.add("active");
+  if (dots[currentSlide]) dots[currentSlide].classList.add("active");
 }
 
 function autoSlide() {
@@ -35,7 +36,8 @@ function autoSlide() {
   updateCarousel();
 }
 
-setInterval(autoSlide, 3000);
+window.addEventListener("resize", updateCarousel); // Recalculate on resize
+setInterval(autoSlide, 4000);
 
 // ===== RSVP STEP CONTROL =====
 function setAttendance(status) {
@@ -104,7 +106,7 @@ fetch("https://script.google.com/macros/s/AKfycbwpk9YVTG-naSUqQiH5EAvWsmG3aJrMmt
     };
 
     for (let i = 0; i < 2; i++) {
-      data.forEach(item => list.appendChild(createEntry(item)));
+      [...data].reverse().forEach(item => list.appendChild(createEntry(item)));
     }
 
     list.style.animationDuration = `${list.scrollHeight / 30}s`;
@@ -224,3 +226,22 @@ textarea.addEventListener('input', function () {
   }
   wordCountDisplay.textContent = `Ucapan: (${words.length} / 20 perkataan)`;
 });
+
+
+function openImagePopup(src) {
+  document.getElementById("popup-img").src = src;
+  document.getElementById("image-popup").style.display = "flex";
+}
+
+function closeImagePopup() {
+  document.getElementById("image-popup").style.display = "none";
+}
+
+function handleRSVPClick() {
+  toggleSection('rsvp');
+  const buttons = document.querySelectorAll('.rsvp-highlight');
+  buttons.forEach(btn => {
+    btn.classList.remove('rsvp-highlight');
+    btn.style.animation = 'none';
+  });
+}
