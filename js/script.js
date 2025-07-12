@@ -131,6 +131,7 @@ fetch("https://script.google.com/macros/s/AKfycbwpk9YVTG-naSUqQiH5EAvWsmG3aJrMmt
     }
 
     list.style.animationDuration = `${list.scrollHeight / 30}s`;
+    
 
     const hadirCount = data.filter(item => item.hadir === "Hadir").length;
     count.textContent = `${hadirCount + 50}`;
@@ -164,13 +165,20 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
-// ===== MUSIC TOGGLE ONLY (Intro removed) =====
-const music = document.getElementById("bg-music");
-const btn = document.getElementById("music-btn");
-const icon = document.getElementById("music-icon");
 
-// Auto play music and show button
+// ===== MUSIC TOGGLE ONLY (Intro removed) =====
 document.addEventListener("DOMContentLoaded", () => {
+  const music = document.getElementById("bg-music");
+  const btn = document.getElementById("music-btn");
+  const icon = document.getElementById("music-icon");
+  const mainContent = document.getElementById("main-content");
+
+  // Show main content and music button
+  document.body.classList.remove("no-scroll");
+  mainContent.style.display = "block";
+  btn.style.display = "block";
+
+  // Try to play music
   music.play().then(() => {
     icon.src = "assets/icons/music-sign.png";
     icon.alt = "Music On";
@@ -178,9 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
     icon.src = "assets/icons/mute.png";
     icon.alt = "Music Off";
   });
-  btn.style.display = "block";
-});
 
+  
 // Toggle music manually
 btn.addEventListener("click", () => {
   if (music.paused) {
@@ -193,6 +200,39 @@ btn.addEventListener("click", () => {
     icon.alt = "Music Off";
   }
 });
+  // Auto-scroll setup
+  let autoScroll = true;
+  let lastScrollY = 0;
+
+  setTimeout(() => {
+    const scrollInterval = setInterval(() => {
+      if (!autoScroll) return;
+      window.scrollBy(0, 1);
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        clearInterval(scrollInterval);
+      }
+    }, 20);
+
+    window.addEventListener("scroll", () => {
+      const currentY = window.scrollY;
+
+      if (currentY < lastScrollY) {
+        autoScroll = false;
+        clearInterval(scrollInterval);
+      }
+
+      if (currentY > lastScrollY) {
+        btn.classList.add("hide");
+      } else {
+        btn.classList.remove("hide");
+      }
+
+      lastScrollY = Math.max(0, currentY);
+    });
+  }, 1300);
+});
+
+
 
 
 btn.addEventListener("click", () => {

@@ -1,11 +1,13 @@
 html {
   background-image: url('../assets/img/bg.png');
   background-repeat: no-repeat;
-  background-size: 100% 100%; /* width: 100%, height: full viewport */
+  background-size: 100% 100%; 
   background-position: top;
-  background-attachment: scroll; /* or fixed if you want parallax */
-   background-color: rgba(255, 243, 222, 0.8); /* ✅ Add this line */
-  background-blend-mode: screen; /* optional: try multiply, overlay, etc. */
+  background-attachment: scroll;
+   background-color: rgba(255, 243, 222, 0.8);
+  background-blend-mode: screen; 
+  overflow-x: hidden;
+
 }
 
 body {
@@ -13,7 +15,7 @@ body {
   font-family: 'Spartan', sans-serif;
   padding-bottom: 60px;
   text-align: center;
- 
+  overflow-x: hidden;
 }
 
 body, footer, .popup-section {
@@ -158,8 +160,8 @@ button {
 section {
   padding:15vh 0;
   margin: 0;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #e4ddd3;
+  border-bottom: 1px solid #e4ddd3;
 }
 
 #wrapper {
@@ -578,3 +580,72 @@ form input, select, textarea {
   transition: border-width 0.8s ease;
 }
 
+.container {
+  position: relative;
+}
+
+.top-right-bg {
+  position: absolute;
+  top: 0;
+  right: -70px;
+  width: 60%; /* adjust size */
+  opacity: 0.8; /* optional for decoration */
+  pointer-events: none;
+  z-index: 0;
+  transform: scaleX(-1);
+}
+
+.top-left-bg {
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 60%; /* adjust size */
+  opacity: 0.8; /* optional for decoration */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bottom-right-bg {
+  position: absolute;
+  bottom: 0;
+  right: -40px;
+  width: 60%; /* adjust as needed */
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+.bottom-left-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60%; /* adjust as needed */
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+  transform: scaleX(-1);
+}
+
+
+.custom-top-left-bg {
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 60%; /* adjust as needed */
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+  transform: scaleX(-1);
+}
+
+.custom-bottom-left-bg {
+  position: absolute;
+  bottom: 0;
+  left: -100px;
+  width: 60%; /* adjust as needed */
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+  transform: scaleX(-1);
+}
