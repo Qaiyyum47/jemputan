@@ -507,7 +507,7 @@ form input, select, textarea {
   justify-content: center;
   position: relative;
   z-index: 10;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 #enter-btn.animate-exit {
@@ -592,11 +592,11 @@ form input, select, textarea {
 
 @keyframes border-pulse {
   0%, 100% {
-    border-width: 2px;
+    border-width: 1px;
   }
   50% {
     border-style: dashed;
-    border-width: 4px;
+    border-width: 2px;
   }
 }
 
