@@ -42,8 +42,15 @@ main {
 }
 
 @font-face {
-  font-family: 'Felixti';
-  src: url('../assets/fonts/Felixti.TTF') format('truetype');
+  font-family: 'test2';
+  src: url('../assets/fonts/Priestacy.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'test1';
+  src: url('../assets/fonts/WhisperingSignature.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -495,8 +502,8 @@ form input, select, textarea {
 }
 
 #enter-btn {
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150px;
   font-size: 18px;
   background-color: transparent;
   color: black;
@@ -508,7 +515,6 @@ form input, select, textarea {
   position: relative;
   z-index: 10;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  font-family: 'Flexiti'
 }
 
 #enter-btn.animate-exit {
