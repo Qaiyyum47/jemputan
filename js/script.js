@@ -266,8 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-
 btn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
