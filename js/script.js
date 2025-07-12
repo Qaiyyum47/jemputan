@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("main-content").style.display = "block";
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//   document.getElementById("main-content").style.display = "block";
+// });
 
 // ===== POPUP CONTROL =====
 function toggleSection(sectionId) {
@@ -43,31 +43,51 @@ function autoSlide() {
 window.addEventListener("resize", updateCarousel); // Recalculate on resize
 setInterval(autoSlide, 4000);
 
+let confirmCallback = null;
+
+function showCustomConfirm(message, callback) {
+  document.getElementById("confirm-message").textContent = message;
+  document.getElementById("confirm-popup").classList.add("active");
+  confirmCallback = callback;
+}
+
+function handleConfirm(choice) {
+  document.getElementById("confirm-popup").classList.remove("active");
+  if (confirmCallback) confirmCallback(choice);
+}
+
+
 // ===== RSVP STEP CONTROL =====
 function setAttendance(status) {
-  const confirmMsg = "Anda memilih: " + status + ". Teruskan?";
-  if (confirm(confirmMsg)) {
-    document.getElementById("hadir-status").value = status;
-    document.getElementById("attendance-step").style.display = "none";
-    document.getElementById("rsvp-form").style.display = "block";
+  const confirmMsg = "Anda memilih: " + status + ", Teruskan?";
+  
+  showCustomConfirm(confirmMsg, function(confirmed) {
+    if (confirmed) {
+      document.getElementById("hadir-status").value = status;
+      document.getElementById("attendance-step").style.display = "none";
+      document.getElementById("rsvp-form").style.display = "block";
 
-    const guestSelect = document.getElementById("guest-amount");
-    const guestLabel = guestSelect.previousElementSibling;
+      const guestSelect = document.getElementById("guest-amount");
+      const guestLabel = guestSelect.previousElementSibling;
 
-    if (status === "Tidak Hadir") {
-      guestSelect.innerHTML = '<option value="0" selected>0</option>';
-      guestSelect.style.display = "none";
-      guestLabel.style.display = "none";
-    } else {
-      guestSelect.innerHTML = `
-        <option value="" disabled selected>Pilih jumlah</option>
-        <option value="1">1</option>
-        <option value="2">2</option>`;
-      guestSelect.style.display = "block";
-      guestLabel.style.display = "block";
+      if (status === "Tidak Hadir") {
+        guestSelect.innerHTML = '<option value="0" selected>0</option>';
+        guestSelect.style.display = "none";
+        guestLabel.style.display = "none";
+      } else {
+        guestSelect.innerHTML = `
+          <option value="" disabled selected>Pilih jumlah</option>
+          <option value="1">1</option>
+          <option value="2">2</option>`;
+        guestSelect.style.display = "block";
+        guestLabel.style.display = "block";
+      }
     }
-  }
+  });
 }
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -166,70 +186,83 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ===== MUSIC TOGGLE ONLY (Intro removed) =====
+
 document.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bg-music");
   const btn = document.getElementById("music-btn");
   const icon = document.getElementById("music-icon");
+  const introScreen = document.getElementById("intro-screen");
+  const enterBtn = document.getElementById("enter-btn");
   const mainContent = document.getElementById("main-content");
 
-  // Show main content and music button
-  document.body.classList.remove("no-scroll");
-  mainContent.style.display = "block";
-  btn.style.display = "block";
+  // Show intro screen first
+  introScreen.style.display = "flex";
+  mainContent.style.display = "none";
+  btn.style.display = "none";
 
-  // Try to play music
-  music.play().then(() => {
-    icon.src = "assets/icons/music-sign.png";
-    icon.alt = "Music On";
-  }).catch(() => {
-    icon.src = "assets/icons/mute.png";
-    icon.alt = "Music Off";
+  enterBtn.addEventListener("click", () => {
+    introScreen.classList.add("fade-out"); // Optional animation class
+    enterBtn.classList.add("animate-exit");
+    document.body.classList.add("no-scroll");
+
+    setTimeout(() => {
+      introScreen.style.display = "none";
+      mainContent.style.display = "block";
+      btn.style.display = "block";
+      document.body.classList.remove("no-scroll");
+
+      // Try to play music
+      music.play().then(() => {
+        icon.src = "assets/icons/music-sign.png";
+        icon.alt = "Music On";
+      }).catch(() => {
+        icon.src = "assets/icons/mute.png";
+        icon.alt = "Music Off";
+      });
+
+      // Start auto-scroll
+      let autoScroll = true;
+      let lastScrollY = 0;
+
+      const scrollInterval = setInterval(() => {
+        if (!autoScroll) return;
+        window.scrollBy(0, 1);
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+          clearInterval(scrollInterval);
+        }
+      }, 40);
+
+      window.addEventListener("scroll", () => {
+        const currentY = window.scrollY;
+
+        if (currentY < lastScrollY) {
+          autoScroll = false;
+          clearInterval(scrollInterval);
+        }
+
+        if (currentY > lastScrollY) {
+          btn.classList.add("hide");
+        } else {
+          btn.classList.remove("hide");
+        }
+
+        lastScrollY = Math.max(0, currentY);
+      });
+    }, 150); // delay after click
   });
 
-  
-// Toggle music manually
-btn.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    icon.src = "assets/icons/music-sign.png";
-    icon.alt = "Music On";
-  } else {
-    music.pause();
-    icon.src = "assets/icons/mute.png";
-    icon.alt = "Music Off";
-  }
-});
-  // Auto-scroll setup
-  let autoScroll = true;
-  let lastScrollY = 0;
-
-  setTimeout(() => {
-    const scrollInterval = setInterval(() => {
-      if (!autoScroll) return;
-      window.scrollBy(0, 1);
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        clearInterval(scrollInterval);
-      }
-    }, 20);
-
-    window.addEventListener("scroll", () => {
-      const currentY = window.scrollY;
-
-      if (currentY < lastScrollY) {
-        autoScroll = false;
-        clearInterval(scrollInterval);
-      }
-
-      if (currentY > lastScrollY) {
-        btn.classList.add("hide");
-      } else {
-        btn.classList.remove("hide");
-      }
-
-      lastScrollY = Math.max(0, currentY);
-    });
-  }, 1300);
+  // Manual toggle
+  btn.addEventListener("click", () => {
+    if (music.paused) {
+      music.play();
+      icon.src = "assets/icons/music-sign.png";
+      icon.alt = "Music On";
+    } else {
+      music.pause();
+      icon.src = "assets/icons/mute.png";
+      icon.alt = "Music Off";
+    }
+  });
 });
 
 

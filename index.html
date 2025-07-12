@@ -12,7 +12,7 @@
         <img id="popup-img" src="" alt="popup" />
     </div>
 
-<body>
+<body >
   
   <audio id="bg-music" src="assets/audio/Airliftz - POPULATION_ TWO (visualizer).mp3" loop></audio>
   <button id="music-btn" style="display: none;">
@@ -21,6 +21,19 @@
 
   <main>
     <div id="wrapper">
+        <div id="intro-screen" class="intro-screen">
+          <div class="intro-inner container">
+            <img src="assets/img/flower.png" class="intro-top-left-bg" >
+            <button id="enter-btn" class="animated-border">
+              <div style=" display: flex; flex-direction: column; align-items: center;">
+                <h3 style="font-family: 'Flexiti'; font-size: 1.6em;   margin-bottom: 0px;">Aqil<br>&<br>Auny</h3>
+                  <p>Buka</p>
+            </div>
+            </button>
+            <img src="assets/img/pastel.png" class="intro-bottom-right-bg" >
+        </div>
+
+        </div>
       <div id="main-content" style="display: none;">
         
         <section class="container">
@@ -168,9 +181,10 @@
             </div>
           </a>
         </div>
-
-        
       </section>
+
+      
+
 
       <section id="popup-rsvp" class="popup-section">
         <button class="close" onclick="closePopup()">x</button>
@@ -262,6 +276,14 @@
       </div>
     </div>
   </footer>
+  <div id="confirm-popup" class="confirm-popup">
+  <p id="confirm-message"></p>
+  <div class="popup-buttons">
+    <button onclick="handleConfirm(true)">Ok</button>
+    <button onclick="handleConfirm(false)">Cancel</button>
+  </div>
+</div>
+
 
 
 </body>
