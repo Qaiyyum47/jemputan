@@ -1,149 +1,3 @@
-// ===== POPUP CONTROL =====
-function toggleSection(sectionId) {
-  closePopup();
-  document.getElementById('popup-overlay').classList.add('active');
-  document.getElementById('popup-' + sectionId).classList.add('active');
-  document.body.classList.add('no-scroll');
-}
-
-function closePopup() {
-  document.getElementById('popup-overlay').classList.remove('active');
-  const popups = document.querySelectorAll('.popup-section');
-  popups.forEach(p => p.classList.remove('active'));
-  document.body.classList.remove('no-scroll');
-}
-
-let currentSlide = 0;
-const slides = document.querySelectorAll(".carousel img");
-const dots = document.querySelectorAll(".dot");
-
-function setSlide(index) {
-  currentSlide = index;
-  updateCarousel();
-}
-
-function updateCarousel() {
-  const slideWidth = document.querySelector(".carousel-wrapper").offsetWidth;
-  const carousel = document.querySelector(".carousel");
-  carousel.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-
-  dots.forEach(dot => dot.classList.remove("active"));
-  if (dots[currentSlide]) dots[currentSlide].classList.add("active");
-}
-
-function autoSlide() {
-  currentSlide = (currentSlide + 1) % slides.length;
-  updateCarousel();
-}
-
-window.addEventListener("resize", updateCarousel); // Recalculate on resize
-setInterval(autoSlide, 4000);
-
-// ===== RSVP STEP CONTROL =====
-function setAttendance(status) {
-  const confirmMsg = "Anda memilih: (" + status + "). Teruskan?";
-  if (confirm(confirmMsg)) {
-    document.getElementById("hadir-status").value = status;
-    document.getElementById("attendance-step").style.display = "none";
-    document.getElementById("rsvp-form").style.display = "block";
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("rsvp-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const data = new FormData(form);
-
-    fetch("https://docs.google.com/forms/d/e/1FAIpQLSfpb6SGSTtJ7RuyJQ1dFrcl8XJ_zci-QMTnm1jt1eBkKTDxug/formResponse", {
-      method: "POST",
-      mode: "no-cors",
-      body: data,
-    });
-
-    form.reset();
-    document.getElementById("rsvp-form").style.display = "none";
-    document.getElementById("rsvp-success").style.display = "block";
-  });
-});
-
-// ===== CAROUSEL SWIPE SUPPORT =====
-let startX = 0;
-let endX = 0;
-const carouselElement = document.querySelector(".carousel-wrapper");
-
-carouselElement.addEventListener("touchstart", (e) => {
-  startX = e.touches[0].clientX;
-});
-
-carouselElement.addEventListener("touchend", (e) => {
-  endX = e.changedTouches[0].clientX;
-  handleSwipe();
-});
-
-function handleSwipe() {
-  if (startX - endX > 50) {
-    currentSlide = (currentSlide + 1) % slides.length;
-    updateCarousel();
-  } else if (endX - startX > 50) {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    updateCarousel();
-  }
-}
-
-// ===== UCAPAN FETCH =====
-fetch("https://script.google.com/macros/s/AKfycbwpk9YVTG-naSUqQiH5EAvWsmG3aJrMmtgfV3ZORWhwu5dF2ug9OxHPQ8VyPazQfq4c4g/exec")
-  .then(res => res.json())
-  .then(data => {
-    const list = document.getElementById("ucapan-list");
-    const count = document.getElementById("guest-count");
-
-    const createEntry = (item) => {
-      const p = document.createElement("p");
-      p.innerHTML = `<i>"${item.message}"</i><br><strong>${item.name}</strong>`;
-      return p;
-    };
-
-    for (let i = 0; i < 2; i++) {
-      [...data].reverse().forEach(item => list.appendChild(createEntry(item)));
-    }
-
-    list.style.animationDuration = `${list.scrollHeight / 30}s`;
-
-    const hadirCount = data.filter(item => item.hadir === "Hadir").length;
-    count.textContent = `${hadirCount + 50}`;
-  })
-  .catch(err => console.error("Failed to fetch ucapan:", err));
-
-// ===== COUNTDOWN =====
-const weddingDate = new Date("2025-08-30T11:00:00").getTime();
-
-function updateCountdown() {
-  const now = new Date().getTime();
-  const distance = weddingDate - now;
-
-  if (distance < 0) {
-    ["days", "hours", "minutes", "seconds"].forEach(id => {
-      document.getElementById(id).textContent = "0";
-    });
-    return;
-  }
-
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  document.getElementById("days").textContent = days;
-  document.getElementById("hours").textContent = hours;
-  document.getElementById("minutes").textContent = minutes;
-  document.getElementById("seconds").textContent = seconds;
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
 // ===== MUSIC + INTRO ANIMATION =====
 const music = document.getElementById("bg-music");
 const btn = document.getElementById("music-btn");
@@ -200,6 +54,7 @@ enterBtn.addEventListener("click", () => {
       });
     }, 1300);
 
+    initApp();
   }, 800);
 });
 
@@ -215,33 +70,181 @@ btn.addEventListener("click", () => {
   }
 });
 
-const textarea = document.getElementById('speech');
-const wordCountDisplay = document.getElementById('wordCount');
-
-textarea.addEventListener('input', function () {
-  let words = this.value.trim().split(/\s+/).filter(Boolean);
-  if (words.length > 20) {
-    words = words.slice(0, 20);
-    this.value = words.join(' ');
+function initApp() {
+  // ===== POPUP CONTROL =====
+  function toggleSection(sectionId) {
+    closePopup();
+    document.getElementById('popup-overlay').classList.add('active');
+    document.getElementById('popup-' + sectionId).classList.add('active');
+    document.body.classList.add('no-scroll');
   }
-  wordCountDisplay.textContent = `Ucapan: (${words.length} / 20 perkataan)`;
-});
 
+  function closePopup() {
+    document.getElementById('popup-overlay').classList.remove('active');
+    const popups = document.querySelectorAll('.popup-section');
+    popups.forEach(p => p.classList.remove('active'));
+    document.body.classList.remove('no-scroll');
+  }
 
-function openImagePopup(src) {
-  document.getElementById("popup-img").src = src;
-  document.getElementById("image-popup").style.display = "flex";
-}
+  // ===== CAROUSEL =====
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".carousel img");
+  const dots = document.querySelectorAll(".dot");
 
-function closeImagePopup() {
-  document.getElementById("image-popup").style.display = "none";
-}
+  function setSlide(index) {
+    currentSlide = index;
+    updateCarousel();
+  }
 
-function handleRSVPClick() {
-  toggleSection('rsvp');
-  const buttons = document.querySelectorAll('.rsvp-highlight');
-  buttons.forEach(btn => {
-    btn.classList.remove('rsvp-highlight');
-    btn.style.animation = 'none';
+  function updateCarousel() {
+    const slideWidth = document.querySelector(".carousel-wrapper").offsetWidth;
+    const carousel = document.querySelector(".carousel");
+    carousel.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
+    dots.forEach(dot => dot.classList.remove("active"));
+    if (dots[currentSlide]) dots[currentSlide].classList.add("active");
+  }
+
+  function autoSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateCarousel();
+  }
+
+  window.addEventListener("resize", updateCarousel);
+  setInterval(autoSlide, 4000);
+
+  // ===== RSVP STEP CONTROL =====
+  function setAttendance(status) {
+    const confirmMsg = "Anda memilih: (" + status + "). Teruskan?";
+    if (confirm(confirmMsg)) {
+      document.getElementById("hadir-status").value = status;
+      document.getElementById("attendance-step").style.display = "none";
+      document.getElementById("rsvp-form").style.display = "block";
+    }
+  }
+
+  document.getElementById("rsvp-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSfpb6SGSTtJ7RuyJQ1dFrcl8XJ_zci-QMTnm1jt1eBkKTDxug/formResponse", {
+      method: "POST",
+      mode: "no-cors",
+      body: data,
+    });
+
+    form.reset();
+    document.getElementById("rsvp-form").style.display = "none";
+    document.getElementById("rsvp-success").style.display = "block";
   });
+
+  // ===== SWIPE SUPPORT =====
+  let startX = 0;
+  let endX = 0;
+  const carouselElement = document.querySelector(".carousel-wrapper");
+
+  carouselElement.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  carouselElement.addEventListener("touchend", (e) => {
+    endX = e.changedTouches[0].clientX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    if (startX - endX > 50) {
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateCarousel();
+    } else if (endX - startX > 50) {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateCarousel();
+    }
+  }
+
+  // ===== UCAPAN =====
+  fetch("https://script.google.com/macros/s/AKfycbwpk9YVTG-naSUqQiH5EAvWsmG3aJrMmtgfV3ZORWhwu5dF2ug9OxHPQ8VyPazQfq4c4g/exec")
+    .then(res => res.json())
+    .then(data => {
+      const list = document.getElementById("ucapan-list");
+      const count = document.getElementById("guest-count");
+
+      const createEntry = (item) => {
+        const p = document.createElement("p");
+        p.innerHTML = `<i>"${item.message}"</i><br><strong>${item.name}</strong>`;
+        return p;
+      };
+
+      for (let i = 0; i < 2; i++) {
+        [...data].reverse().forEach(item => list.appendChild(createEntry(item)));
+      }
+
+      list.style.animationDuration = `${list.scrollHeight / 30}s`;
+
+      const hadirCount = data.filter(item => item.hadir === "Hadir").length;
+      count.textContent = `${hadirCount + 50}`;
+    })
+    .catch(err => console.error("Failed to fetch ucapan:", err));
+
+  // ===== COUNTDOWN =====
+  const weddingDate = new Date("2025-08-30T11:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    if (distance < 0) {
+      ["days", "hours", "minutes", "seconds"].forEach(id => {
+        document.getElementById(id).textContent = "0";
+      });
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ===== UCAPAN INPUT WORD LIMIT =====
+  const textarea = document.getElementById('speech');
+  const wordCountDisplay = document.getElementById('wordCount');
+
+  textarea.addEventListener('input', function () {
+    let words = this.value.trim().split(/\s+/).filter(Boolean);
+    if (words.length > 20) {
+      words = words.slice(0, 20);
+      this.value = words.join(' ');
+    }
+    wordCountDisplay.textContent = `Ucapan: (${words.length} / 20 perkataan)`;
+  });
+
+  // ===== IMAGE POPUP =====
+  window.openImagePopup = function (src) {
+    document.getElementById("popup-img").src = src;
+    document.getElementById("image-popup").style.display = "flex";
+  }
+
+  window.closeImagePopup = function () {
+    document.getElementById("image-popup").style.display = "none";
+  }
+
+  window.handleRSVPClick = function () {
+    toggleSection('rsvp');
+    const buttons = document.querySelectorAll('.rsvp-highlight');
+    buttons.forEach(btn => {
+      btn.classList.remove('rsvp-highlight');
+      btn.style.animation = 'none';
+    });
+  }
 }
