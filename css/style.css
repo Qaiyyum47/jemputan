@@ -635,7 +635,7 @@ form input, select, textarea {
 .top-right-bg {
   position: absolute;
   top: 0;
-  right: -40px;
+  right: -90px;
   width: 60%; /* adjust size */
   opacity: 0.8; /* optional for decoration */
   pointer-events: none;
