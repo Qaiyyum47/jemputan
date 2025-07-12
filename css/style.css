@@ -24,6 +24,9 @@ max-width: 425px;
   border-left: 1px solid #ccc;
 }
 
+#main-content {
+  display: block;
+}
 
 main {
   padding: 16px;
@@ -43,11 +46,12 @@ main {
   font-style: normal;
 }
 
-h1 { font-family: 'Felixti', sans-serif; font-size: 1.6em; margin: 10px 0; color: #6c4411; }
-h2 { font-family: 'Felixti', sans-serif;font-size: 1.2em; margin: 10px 0; color: #6c4411;}
-h3 { font-size: 1.1em; margin: 10px 0; color: #6c4411; }
-h4 { font-size: 1em; margin: 10px 0;color: #8a5b0e; }
+h1 { font-family: 'Felixti', sans-serif; font-size: 1.6em; margin: 5px 0; color: #6c4411; }
+h2 { font-family: 'Felixti', sans-serif;font-size: 1.2em; margin: 5px 0; color: #6c4411;}
+h3 { font-size: 1em; margin: 8px 0; color: #6c4411; }
 p  { font-size: 0.9em; margin: 4px 0;color: #8a5b0e; }
+
+.h3-main { font-family: 'Felixti', sans-serif; margin: 0px 0; font-size: 1em; margin: 8px 0; color: #6c4411;}
 
 img {
   max-width: 100%;
@@ -63,10 +67,25 @@ img {
   margin-bottom: 10px;
 }
 
+.countdown-label {
+  color:#6c4411;
+}
+
 .countdown-box {
   flex: 1 1 10%;
   padding: 10px;
   border-radius: 8px;
+}
+.countdown-box h2 {
+  color: #8A5B0E;
+}
+
+#guest-count {
+  color: #8A5B0E;
+}
+
+.guest-count-label {
+  color: #6c4411;
 }
 
 #navigation {
@@ -79,8 +98,10 @@ img {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 0;
+  padding: 15px 0;
   z-index: 3000;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .nav-links {
@@ -135,8 +156,9 @@ button {
 }
 
 section {
-  padding: 40px 0;
-  margin: 10px 0;
+  padding:15vh 0;
+  margin: 0;
+  border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
 
@@ -154,7 +176,7 @@ section {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 50%;
+  height: 55%;
   background: #fff;
   z-index: 2000;
   padding: 20px 0px;
@@ -207,6 +229,7 @@ form input, select, textarea {
 
 .labell {
   font-size: 1em;
+  color: black
 }
 
 .carousel-wrapper {
@@ -303,7 +326,7 @@ form input, select, textarea {
 }
 
 .contact-box {
-  width: 85%;
+  width: 80%;
   max-width: 400px;
   display: flex;
   justify-content: space-between;
@@ -349,6 +372,16 @@ form input, select, textarea {
 .rsvp-btn {
   margin-top: 5%;
 }
+
+#rsvp-form {
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 
 .timeline li {
   width: 80%;
@@ -447,8 +480,8 @@ form input, select, textarea {
 }
 
 #enter-btn {
-  width: 120px;
-  height: 120px;
+  width: 135px;
+  height: 135px;
   font-size: 18px;
   background-color: white;
   color: black;
@@ -468,10 +501,14 @@ form input, select, textarea {
 } 
 
 .kehadiran {
-  width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  width: 80%;
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid;
+  margin: 10px auto;
+  display: block;
 }
+
 
 .popup-overlay1 {
   position: fixed;

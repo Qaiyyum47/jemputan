@@ -1,3 +1,6 @@
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("main-content").style.display = "block";
+});
 
 // ===== POPUP CONTROL =====
 function toggleSection(sectionId) {
@@ -42,13 +45,30 @@ setInterval(autoSlide, 4000);
 
 // ===== RSVP STEP CONTROL =====
 function setAttendance(status) {
-  const confirmMsg = "Anda memilih: (" + status + "). Teruskan?";
+  const confirmMsg = "Anda memilih: " + status + ". Teruskan?";
   if (confirm(confirmMsg)) {
     document.getElementById("hadir-status").value = status;
     document.getElementById("attendance-step").style.display = "none";
     document.getElementById("rsvp-form").style.display = "block";
+
+    const guestSelect = document.getElementById("guest-amount");
+    const guestLabel = guestSelect.previousElementSibling;
+
+    if (status === "Tidak Hadir") {
+      guestSelect.innerHTML = '<option value="0" selected>0</option>';
+      guestSelect.style.display = "none";
+      guestLabel.style.display = "none";
+    } else {
+      guestSelect.innerHTML = `
+        <option value="" disabled selected>Pilih jumlah</option>
+        <option value="1">1</option>
+        <option value="2">2</option>`;
+      guestSelect.style.display = "block";
+      guestLabel.style.display = "block";
+    }
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("rsvp-form").addEventListener("submit", function (e) {
@@ -144,65 +164,36 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
-
-// ===== MUSIC + INTRO ANIMATION =====
+// ===== MUSIC TOGGLE ONLY (Intro removed) =====
 const music = document.getElementById("bg-music");
 const btn = document.getElementById("music-btn");
 const icon = document.getElementById("music-icon");
-const introScreen = document.getElementById("intro-screen");
-const enterBtn = document.getElementById("enter-btn");
-const mainContent = document.getElementById("main-content");
 
-enterBtn.addEventListener("click", () => {
-  enterBtn.classList.add("animate-exit");
-  document.body.classList.add("no-scroll");
-
-  setTimeout(() => {
-    document.body.classList.remove("no-scroll");
-    introScreen.style.display = "none";
-    mainContent.style.display = "block";
-    btn.style.display = "block";
-
-    music.play().then(() => {
-      icon.src = "assets/icons/music-sign.png";
-      icon.alt = "Music On";
-    }).catch(() => {
-      icon.src = "assets/icons/mute.png";
-      icon.alt = "Music Off";
-    });
-
-    let autoScroll = true;
-    let lastScrollY = 0;
-
-    setTimeout(() => {
-      const scrollInterval = setInterval(() => {
-        if (!autoScroll) return;
-        window.scrollBy(0, 1);
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-          clearInterval(scrollInterval);
-        }
-      }, 20);
-
-      window.addEventListener("scroll", () => {
-        const currentY = window.scrollY;
-
-        if (currentY < lastScrollY) {
-          autoScroll = false;
-          clearInterval(scrollInterval);
-        }
-
-        if (currentY > lastScrollY) {
-          btn.classList.add("hide");
-        } else {
-          btn.classList.remove("hide");
-        }
-
-        lastScrollY = Math.max(0, currentY);
-      });
-    }, 1300);
-
-  }, 800);
+// Auto play music and show button
+document.addEventListener("DOMContentLoaded", () => {
+  music.play().then(() => {
+    icon.src = "assets/icons/music-sign.png";
+    icon.alt = "Music On";
+  }).catch(() => {
+    icon.src = "assets/icons/mute.png";
+    icon.alt = "Music Off";
+  });
+  btn.style.display = "block";
 });
+
+// Toggle music manually
+btn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    icon.src = "assets/icons/music-sign.png";
+    icon.alt = "Music On";
+  } else {
+    music.pause();
+    icon.src = "assets/icons/mute.png";
+    icon.alt = "Music Off";
+  }
+});
+
 
 btn.addEventListener("click", () => {
   if (music.paused) {
