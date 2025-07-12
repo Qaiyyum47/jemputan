@@ -35,6 +35,13 @@ main {
 }
 
 @font-face {
+  font-family: 'Felixti';
+  src: url('../assets/fonts/Felixti.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Spartan';
   src: url('../assets/fonts/LeagueSpartan-Regular.ttf') format('truetype');
   font-weight: normal;
