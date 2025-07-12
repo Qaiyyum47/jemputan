@@ -139,6 +139,8 @@ fetch("https://script.google.com/macros/s/AKfycbwpk9YVTG-naSUqQiH5EAvWsmG3aJrMmt
   .then(data => {
     const list = document.getElementById("ucapan-list");
     const count = document.getElementById("guest-count");
+    const count1 = document.getElementById("guest-count-no");
+
 
     const createEntry = (item) => {
       const p = document.createElement("p");
@@ -154,7 +156,10 @@ fetch("https://script.google.com/macros/s/AKfycbwpk9YVTG-naSUqQiH5EAvWsmG3aJrMmt
     
 
     const hadirCount = data.filter(item => item.hadir === "Hadir").length;
-    count.textContent = `${hadirCount + 50}`;
+    const xhadirCount = data.filter(item => item.hadir === "Tidak Hadir").length;
+    count.textContent = `${hadirCount + 300}`;
+    count1.textContent = `${xhadirCount}`;
+    
   })
   .catch(err => console.error("Failed to fetch ucapan:", err));
 

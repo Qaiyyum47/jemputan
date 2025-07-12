@@ -100,6 +100,10 @@ img {
   color: #8A5B0E;
 }
 
+#guest-count-no {
+  color: #8A5B0E;
+}
+
 .guest-count-label {
   color: #6c4411;
 }
@@ -176,6 +180,10 @@ section {
   margin: 0;
   border-top: 1px solid #e4ddd3;
   border-bottom: 1px solid #e4ddd3;
+}
+
+.short {
+  padding:0vh 0 10vh 0;
 }
 
 #wrapper {
@@ -609,8 +617,8 @@ form input, select, textarea {
     border-width: 1px;
   }
   50% {
-    border-style: dashed;
     border-width: 2px;
+    scale: 1.3;
   }
 }
 
@@ -627,7 +635,7 @@ form input, select, textarea {
 .top-right-bg {
   position: absolute;
   top: 0;
-  right: -70px;
+  right: -40px;
   width: 60%; /* adjust size */
   opacity: 0.8; /* optional for decoration */
   pointer-events: none;

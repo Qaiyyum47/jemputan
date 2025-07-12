@@ -109,9 +109,15 @@
               <div class="countdown-label">Saat</div>
             </div>
           </div>
-          <div class="guest-count-label">
-            <h2 id="guest-count">--</h2>
-            Kehadiran
+          <div style="display: flex; gap: 10px; justify-content: center; text-align: center;">
+            <div class="guest-count-label">
+              <h2 id="guest-count">--</h2>
+              Kehadiran
+            </div>
+            <div class="guest-count-label">
+              <h2 id="guest-count-no">--</h2>
+              Tidak Hadir
+            </div>
           </div>
         </section>
 
@@ -157,17 +163,18 @@
         </section>
       </div>
 
-      <section class="container">
+      <section class="short container">
         <img src="assets/img/pastel.png" class="custom-top-left-bg" >
-        <h2>Ucapan</h2>
+        <h2>Ucapan & Doa</h2>
         <div id="ucapan-list" class="ucapan-scroll"></div>
         <button class="rsvp-btn rsvp-highlight" onclick="handleRSVPClick(this)">RSVP</button>
         <img src="assets/img/flower-bottom.png" class="bottom-right-bg" >
       </section>
       <br>
-      <p style="color: #ccc">Music by:<br> <a style="color: #a7a2a2; text-decoration: underline;" href="https://www.youtube.com/watch?v=XpXnw8Qn7LU&pp=ygUrYWlybGlmdHogLSBwb3B1bGF0aW9uXyB0d28gKHZpc3VhbGl6ZXIpLm1wMw%3D%3D">
+      <p style="color: #ccc">By Ayum & Ajik</p>
+      <!-- <p style="color: #ccc">Music:<br> <a style="color: #a7a2a2; text-decoration: underline;" href="https://www.youtube.com/watch?v=XpXnw8Qn7LU&pp=ygUrYWlybGlmdHogLSBwb3B1bGF0aW9uXyB0d28gKHZpc3VhbGl6ZXIpLm1wMw%3D%3D">
         Airliftz - POPULATION: TWO
-      </a></p>
+      </a></p> -->
 
       <div id="popup-overlay" class="popup-overlay" onclick="closePopup()"></div>
 
@@ -222,7 +229,21 @@
           
           <p id="wordCount"><span class="labell">Ucapan:</span> (0 / 20 perkataan)</p>
           <textarea id="speech" name="entry.637054969" rows="4" placeholder="Tulis ucapan anda di sini"></textarea>
+          <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.getElementById('speech');
+            const counter  = document.getElementById('wordCount');
 
+            textarea.addEventListener('input', () => {
+              let words = textarea.value.trim().split(/\s+/).filter(Boolean);
+              if (words.length > 20) {
+                words = words.slice(0, 20);
+                textarea.value = words.join(' ');
+              }
+              counter.innerHTML = `<span class="labell">Ucapan:</span> (${words.length} / 20 perkataan)`;
+            });
+          });
+          </script>
           <button class="hadir-submit" type="submit">Hantar</button>
         </form>
       </section>
