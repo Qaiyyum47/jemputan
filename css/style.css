@@ -186,6 +186,10 @@ section {
   padding:0vh 0 10vh 0;
 }
 
+.shorter {
+  padding:5vh 0;
+}
+
 #wrapper {
   max-width: 425px;
   width: 100%;
