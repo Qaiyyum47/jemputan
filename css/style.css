@@ -1,25 +1,26 @@
 html {
-  background-image: url('../assets/img/bg.png');
+  background-image: url("../assets/img/bg.png");
   background-repeat: no-repeat;
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
   background-position: top;
   background-attachment: scroll;
-   background-color: rgba(255, 243, 222, 0.8);
-  background-blend-mode: screen; 
+  background-color: rgba(255, 243, 222, 0.8);
+  background-blend-mode: screen;
   overflow-x: hidden;
-
 }
 
 body {
   box-sizing: border-box;
-  font-family: 'Spartan', sans-serif;
+  font-family: "Spartan", sans-serif;
   padding-bottom: 60px;
   text-align: center;
   overflow-x: hidden;
 }
 
-body, footer, .popup-section {
-max-width: 425px;
+body,
+footer,
+.popup-section {
+  max-width: 425px;
   margin-right: auto;
   margin-left: auto;
   border-right: 1px solid #ccc;
@@ -35,39 +36,66 @@ main {
 }
 
 @font-face {
-  font-family: 'Felixti';
-  src: url('../assets/fonts/Felixti.TTF') format('truetype');
+  font-family: "Felixti";
+  src: url("../assets/fonts/Felixti.TTF") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Spartan';
-  src: url('../assets/fonts/LeagueSpartan-Regular.ttf') format('truetype');
+  font-family: "Spartan";
+  src: url("../assets/fonts/LeagueSpartan-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'test2';
-  src: url('../assets/fonts/Priestacy.otf') format('opentype');
+  font-family: "test2";
+  src: url("../assets/fonts/Priestacy.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'test1';
-  src: url('../assets/fonts/WhisperingSignature.ttf') format('truetype');
+  font-family: "test1";
+  src: url("../assets/fonts/WhisperingSignature.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
-h1 { font-family: 'Felixti', sans-serif; font-size: 1.6em; margin: 5px 0; color: #6c4411; }
-h2 { font-family: 'Felixti', sans-serif;font-size: 1.2em; margin: 5px 0; color: #6c4411;}
-h3 { font-size: 1em; margin: 8px 0; color: #6c4411; }
-p  { font-size: 0.9em; margin: 4px 0;color: #8a5b0e; }
+h1 {
+  font-family: "Felixti", sans-serif;
+  font-size: 1.6em;
+  margin: 5px 0;
+  color: #6c4411;
+}
 
-.h3-main { font-family: 'Felixti', sans-serif; margin: 0px 0; font-size: 1em; margin: 8px 0; color: #6c4411;}
+h2 {
+  font-family: "Felixti", sans-serif;
+  font-size: 1.2em;
+  margin: 5px 0;
+  color: #6c4411;
+}
+
+h3 {
+  font-size: 1em;
+  margin: 8px 0;
+  color: #6c4411;
+}
+
+p {
+  font-size: 0.9em;
+  margin: 4px 0;
+  color: #8a5b0e;
+}
+
+.h3-main {
+  font-family: "Felixti", sans-serif;
+  margin: 0px 0;
+  font-size: 1em;
+  margin: 8px 0;
+  color: #6c4411;
+}
 
 img {
   max-width: 100%;
@@ -84,7 +112,7 @@ img {
 }
 
 .countdown-label {
-  color:#6c4411;
+  color: #6c4411;
 }
 
 .countdown-box {
@@ -92,16 +120,17 @@ img {
   padding: 10px;
   border-radius: 8px;
 }
+
 .countdown-box h2 {
-  color: #8A5B0E;
+  color: #8a5b0e;
 }
 
 #guest-count {
-  color: #8A5B0E;
+  color: #8a5b0e;
 }
 
 #guest-count-no {
-  color: #8A5B0E;
+  color: #8a5b0e;
 }
 
 .guest-count-label {
@@ -139,16 +168,21 @@ img {
   margin-top: 4px;
 }
 
-input, textarea, button, select {
+input,
+textarea,
+button,
+select {
   padding: 10px;
   font-size: 1em;
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
-  font-family: 'Spartan', sans-serif;
+  font-family: "Spartan", sans-serif;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   border-radius: 8px;
   border: 1px solid;
 }
@@ -159,7 +193,7 @@ button {
   border: 1px solid;
   border-radius: 10px;
   margin-top: 5px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 50%;
 }
 
@@ -176,18 +210,18 @@ button {
 }
 
 section {
-  padding:10vh 0;
+  padding: 10vh 0;
   margin: 0;
   border-top: 1px solid #e4ddd3;
   border-bottom: 1px solid #e4ddd3;
 }
 
 .short {
-  padding:0vh 0 10vh 0;
+  padding: 0vh 0 10vh 0;
 }
 
 .shorter {
-  padding:5vh 0;
+  padding: 5vh 0;
 }
 
 #wrapper {
@@ -225,16 +259,22 @@ section {
 }
 
 @keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .popup-overlay {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
   z-index: 1000;
 }
 
@@ -251,13 +291,15 @@ section {
   gap: 10px;
 }
 
-form input, select, textarea {
+form input,
+select,
+textarea {
   margin-bottom: 10px;
 }
 
 .labell {
   font-size: 1em;
-  color: black
+  color: black;
 }
 
 .carousel-wrapper {
@@ -268,7 +310,7 @@ form input, select, textarea {
   margin: 0 auto;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .carousel {
@@ -282,7 +324,6 @@ form input, select, textarea {
   object-fit: cover;
   flex-shrink: 0;
 }
-
 
 .dots {
   text-align: center;
@@ -326,13 +367,12 @@ form input, select, textarea {
 .time {
   font-weight: bold;
   margin-bottom: 4px;
-  color:  #6c4411;
+  color: #6c4411;
 }
 
 .event {
-  color:  #8A5B0E;
+  color: #8a5b0e;
 }
-
 
 .contact-container {
   display: flex;
@@ -345,8 +385,8 @@ form input, select, textarea {
 }
 
 .contact-link {
-  display: flex;              /* ensure child centers */
-  justify-content: center;    /* center the .contact-box */
+  display: flex; /* ensure child centers */
+  justify-content: center; /* center the .contact-box */
   width: 100%;
   text-decoration: none;
   color: inherit;
@@ -363,11 +403,10 @@ form input, select, textarea {
   border: 1px solid;
   border-radius: 10px;
   background: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: background 0.2s;
   text-align: left;
 }
-
 
 .wa-icon {
   width: 24px;
@@ -392,10 +431,9 @@ form input, select, textarea {
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
-  font-family: 'Spartan', sans-serif;
+  font-family: "Spartan", sans-serif;
   transition: background-color 0.2s;
 }
-
 
 .rsvp-btn {
   margin-top: 5%;
@@ -409,7 +447,6 @@ form input, select, textarea {
   flex-direction: column;
   align-items: stretch;
 }
-
 
 .timeline li {
   width: 80%;
@@ -441,12 +478,12 @@ form input, select, textarea {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   width: 60%;
-  margin:0 auto
+  margin: 0 auto;
 }
 
 #ucapan-list {
-  max-height: 200px;
-  overflow-y: hidden;
+  max-height: 500px;
+  overflow-y: auto;
   padding-right: 10px;
 }
 
@@ -454,15 +491,12 @@ form input, select, textarea {
   margin: 0;
   padding: 8px 0;
   font-size: 16px;
-  animation: scroll-up 20s linear infinite;
   text-align: center;
   color: black;
+  display: block;
 }
 
-@keyframes scroll-up {
-  0% { transform: translateY(100%); }
-  100% { transform: translateY(-100%); }
-}
+
 
 #music-btn {
   background: white;
@@ -511,13 +545,13 @@ form input, select, textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url('../assets/img/bg.png');
+  background-image: url("../assets/img/bg.png");
   background-repeat: no-repeat;
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
   background-position: top;
   background-attachment: scroll;
-   background-color: rgba(255, 243, 222, 0.8);
-  background-blend-mode: screen; 
+  background-color: rgba(255, 243, 222, 0.8);
+  background-blend-mode: screen;
 }
 
 #enter-btn {
@@ -533,14 +567,14 @@ form input, select, textarea {
   justify-content: center;
   position: relative;
   z-index: 10;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #enter-btn.animate-exit {
   transform: translateY(200px);
   opacity: 0;
   transition: transform 0.8s ease, opacity 0.8s ease;
-} 
+}
 
 .fade-out {
   animation: fadeOut 0.5s forwards;
@@ -553,7 +587,6 @@ form input, select, textarea {
   }
 }
 
-
 .kehadiran {
   width: 80%;
   max-width: 400px;
@@ -563,12 +596,13 @@ form input, select, textarea {
   display: block;
 }
 
-
 .popup-overlay1 {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.8);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
   display: none;
   justify-content: center;
   align-items: center;
@@ -579,17 +613,17 @@ form input, select, textarea {
   max-width: 90vw;
   max-height: 90vh;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes pulse-highlight {
-  0%, 100% {
-     background-color: white;
-    color:  #6c4411;
+  0%,
+  100% {
+    background-color: white;
+    color: #6c4411;
     transform: scale(1);
-    
   }
-  50% { 
+  50% {
     background-color: black;
     color: white;
     border: 2px solid black;
@@ -603,7 +637,8 @@ form input, select, textarea {
 }
 
 @keyframes pulse-highlight {
-  0%, 100% {
+  0%,
+  100% {
     background-color: white;
     color: black;
     transform: scale(1);
@@ -611,13 +646,14 @@ form input, select, textarea {
   50% {
     background-color: #6c4411;
     color: white;
-    border: 2px solid  #6c4411;
+    border: 2px solid #6c4411;
     transform: scale(1.09);
   }
 }
 
 @keyframes border-pulse {
-  0%, 100% {
+  0%,
+  100% {
     border-width: 1px;
   }
   50% {
@@ -667,7 +703,6 @@ form input, select, textarea {
   z-index: 0;
 }
 
-
 .bottom-left-bg {
   position: absolute;
   bottom: 0;
@@ -678,7 +713,6 @@ form input, select, textarea {
   z-index: 0;
   transform: scaleX(-1);
 }
-
 
 .custom-top-left-bg {
   position: absolute;
@@ -736,8 +770,8 @@ form input, select, textarea {
 }
 
 #speech {
-    resize: none;
-    overflow: hidden;
-    width: 100%;
-    height: 100px;
-  }
+  resize: none;
+  overflow: hidden;
+  width: 100%;
+  height: 100px;
+}

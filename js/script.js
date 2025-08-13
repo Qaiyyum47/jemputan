@@ -1,8 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   document.getElementById("main-content").style.display = "block";
-// });
-
-// ===== POPUP CONTROL =====
 function toggleSection(sectionId) {
   closePopup();
   document.getElementById('popup-overlay').classList.add('active');
@@ -16,6 +11,7 @@ function closePopup() {
   popups.forEach(p => p.classList.remove('active'));
   document.body.classList.remove('no-scroll');
 }
+
 
 let currentSlide = 0;
 const slides = document.querySelectorAll(".carousel img");
@@ -40,7 +36,7 @@ function autoSlide() {
   updateCarousel();
 }
 
-window.addEventListener("resize", updateCarousel); // Recalculate on resize
+window.addEventListener("resize", updateCarousel);
 setInterval(autoSlide, 4000);
 
 let confirmCallback = null;
@@ -56,11 +52,9 @@ function handleConfirm(choice) {
   if (confirmCallback) confirmCallback(choice);
 }
 
-
-// ===== RSVP STEP CONTROL =====
 function setAttendance(status) {
   const confirmMsg = "Anda memilih: " + status + ", Teruskan?";
-  
+
   showCustomConfirm(confirmMsg, function(confirmed) {
     if (confirmed) {
       document.getElementById("hadir-status").value = status;
@@ -86,18 +80,14 @@ function setAttendance(status) {
   });
 }
 
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("rsvp-form").addEventListener("submit", function (e) {
+  document.getElementById("rsvp-form").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const form = e.target;
     const data = new FormData(form);
 
-    fetch("https://docs.google.com/forms/d/e/1FAIpQLSfpb6SGSTtJ7RuyJQ1dFrcl8XJ_zci-QMTnm1jt1eBkKTDxug/formResponse", {
+    fetch(" https://docs.google.com/forms/d/e/1FAIpQLSfpb6SGSTtJ7RuyJQ1dFrcl8XJ_zci-QMTnm1jt1eBkKTDxug/formResponse", {
       method: "POST",
       mode: "no-cors",
       body: data,
@@ -109,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ===== CAROUSEL SWIPE SUPPORT =====
 let startX = 0;
 let endX = 0;
 const carouselElement = document.querySelector(".carousel-wrapper");
@@ -133,32 +122,61 @@ function handleSwipe() {
   }
 }
 
-// ===== UCAPAN FETCH =====
-fetch("https://script.google.com/macros/s/AKfycbwVMaTZ4zEjqFmh9zKsIT6uSRfq2xHxhpG2PcAuIkW_7S_CvSYzIyoz5TkICJuJ4i9_Dw/exec")
-  .then(res => res.json())
-  .then(data => {
-    const list   = document.getElementById("ucapan-list");
-    const count  = document.getElementById("guest-count");
-    const count1 = document.getElementById("guest-count-no");
+function fetchAndRenderUcapan() {
+  fetch("https://script.google.com/macros/s/AKfycbwVMaTZ4zEjqFmh9zKsIT6uSRfq2xHxhpG2PcAuIkW_7S_CvSYzIyoz5TkICJuJ4i9_Dw/exec")
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(data => {
+      const list = document.getElementById("ucapan-list");
+      const totalGuestsAttending = document.getElementById("guest-count");
+      const totalGuestsNotAttending = document.getElementById("guest-count-no");
 
-    const addEntry = ({ message, name }) => {
-      if (!message || !message.trim()) return;
-      const p = document.createElement("p");
-      p.innerHTML = `<i>"${message}"</i><br><strong>${name}</strong>`;
-      list.appendChild(p);
-    };
-    [...data].reverse().forEach(addEntry);    
-    list.style.animationDuration = `${list.scrollHeight / 30}s`;
+      const addEntry = ({ message, name }) => {
+        if (!message || !message.trim()) return;
+        const p = document.createElement("p");
+        p.innerHTML = `<i>"${message}"</i><br><strong>${name}</strong>`;
+        list.appendChild(p);
+      };
+      [...data].reverse().forEach(addEntry);
 
-    const totalGuest = data.reduce((s, r) => s + (+r.bilangan || 0), 0);
-    const noGuest    = data.filter(r => r.hadir === "Tidak Hadir").length;
+      const originalContent = list.innerHTML;
+      list.innerHTML += originalContent;
 
-    count.textContent  = totalGuest + 300; 
-    count1.textContent = noGuest;
-  })
-  .catch(err => console.error("Failed to fetch ucapan:", err));
+      const scrollDuration = (list.scrollHeight / 2) / 30 * 1000; 
 
-// ===== COUNTDOWN =====
+      let scrollPosition = 0;
+      const scrollStep = 1;
+      const scrollInterval = 250; 
+
+      function autoScroll() {
+        scrollPosition += scrollStep;
+        if (scrollPosition >= list.scrollHeight / 2) {
+          scrollPosition = 0; 
+        }
+        list.scrollTop = scrollPosition;
+      }
+
+      setInterval(autoScroll, scrollInterval);
+
+      const totalGuest = data.reduce((s, r) => s + (+r.bilangan || 0), 0);
+      const noGuest = data.filter(r => r.hadir === "Tidak Hadir").length;
+
+      totalGuestsAttending.textContent = totalGuest;
+      totalGuestsNotAttending.textContent = noGuest;
+    })
+    .catch(err => {
+      console.error("Failed to fetch ucapan:", err);
+      const list = document.getElementById("ucapan-list");
+      list.innerHTML = "<p style=\"color: red;\">Failed to load messages. Please try again later.</p>";
+    });
+}
+
+fetchAndRenderUcapan();
+
 const weddingDate = new Date("2025-08-30T11:00:00").getTime();
 
 function updateCountdown() {
@@ -186,7 +204,6 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bg-music");
   const btn = document.getElementById("music-btn");
@@ -195,13 +212,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const enterBtn = document.getElementById("enter-btn");
   const mainContent = document.getElementById("main-content");
 
-  // Show intro screen first
   introScreen.style.display = "flex";
   mainContent.style.display = "none";
   btn.style.display = "none";
 
   enterBtn.addEventListener("click", () => {
-    introScreen.classList.add("fade-out"); // Optional animation class
+    introScreen.classList.add("fade-out");
     enterBtn.classList.add("animate-exit");
     document.body.classList.add("no-scroll");
 
@@ -211,16 +227,14 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.style.display = "block";
       document.body.classList.remove("no-scroll");
 
-      // Try to play music
       music.play().then(() => {
-        icon.src = "assets/icons/music-sign.png";
+        icon.src = "assets/icons/music-sign.webp";
         icon.alt = "Music On";
       }).catch(() => {
-        icon.src = "assets/icons/mute.png";
+        icon.src = "assets/icons/mute.webp";
         icon.alt = "Music Off";
       });
 
-      // Start auto-scroll
       let autoScroll = true;
       let lastScrollY = 0;
 
@@ -248,32 +262,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         lastScrollY = Math.max(0, currentY);
       });
-    }, 150); // delay after click
+    }, 150);
   });
 
-  // Manual toggle
   btn.addEventListener("click", () => {
     if (music.paused) {
       music.play();
-      icon.src = "assets/icons/music-sign.png";
+      icon.src = "assets/icons/music-sign.webp";
       icon.alt = "Music On";
     } else {
       music.pause();
-      icon.src = "assets/icons/mute.png";
+      icon.src = "assets/icons/mute.webp";
       icon.alt = "Music Off";
     }
   });
 });
 
-
 btn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
-    icon.src = "assets/icons/music-sign.png";
+    icon.src = "assets/icons/music-sign.webp";
     icon.alt = "Music On";
   } else {
     music.pause();
-    icon.src = "assets/icons/mute.png";
+    icon.src = "assets/icons/mute.webp";
     icon.alt = "Music Off";
   }
 });
@@ -281,7 +293,7 @@ btn.addEventListener("click", () => {
 const textarea = document.getElementById('speech');
 const wordCountDisplay = document.getElementById('wordCount');
 
-textarea.addEventListener('input', function () {
+textarea.addEventListener('input', function() {
   let words = this.value.trim().split(/\s+/).filter(Boolean);
   if (words.length > 20) {
     words = words.slice(0, 20);
@@ -289,7 +301,6 @@ textarea.addEventListener('input', function () {
   }
   wordCountDisplay.textContent = `Ucapan: (${words.length} / 20 perkataan)`;
 });
-
 
 function openImagePopup(src) {
   document.getElementById("popup-img").src = src;
