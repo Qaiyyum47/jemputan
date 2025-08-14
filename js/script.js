@@ -165,7 +165,7 @@ function fetchAndRenderUcapan() {
       const totalGuest = data.reduce((s, r) => s + (+r.bilangan || 0), 0);
       const noGuest = data.filter(r => r.hadir === "Tidak Hadir").length;
 
-      totalGuestsAttending.textContent = totalGuest;
+      totalGuestsAttending.textContent = totalGuest + 300;
       totalGuestsNotAttending.textContent = noGuest;
     })
     .catch(err => {
